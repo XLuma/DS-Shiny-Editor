@@ -1,10 +1,12 @@
-using DSShinyEditor;
+﻿using DSShinyEditor;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Forms;
+
 
 namespace DS_Shiny_Editor
 {
@@ -17,6 +19,7 @@ To use SHINYRATE via cli ROMNAME must be supplied.
 The new rate can only range between 00 to FF (basically 0 to 255, being 0/65535 to roughly 1/257). for example, a rate of 10 gives 1/4096
 To calculate the percentage, the following can be used: (Rate/65535)*100. The default value is 08 (1/8192)";
 
+        [STAThread]
         static void Main(string[] args)
         {
             string path = null;
@@ -64,8 +67,14 @@ To calculate the percentage, the following can be used: (Rate/65535)*100. The de
         static String PathPrompt()
         {
             // Default ROM is "platinum.nds"
-            Console.Write("Enter the path of your Pok�mon ROM (including the extension), and press enter. ");
-            return Console.ReadLine();
+            Console.Write("Select the path of your Pokémon ROM. Then press enter.");
+            string fileName;
+            OpenFileDialog fd = new OpenFileDialog();
+            fd.ShowDialog();            
+            fileName = fd.FileName;
+            Console.WriteLine("");
+            Console.WriteLine("File chosen: "+fd.SafeFileName);
+            return fileName;
         }
 
         static byte RatePrompt()
