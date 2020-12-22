@@ -15,7 +15,12 @@ namespace DSShinyEditor
             ["APA"] = 0x6CAC2,
             ["CPU"] = 0x79E50,
             ["IPK"] = 0x7007E,
-            ["IPG"] = 0x7007E
+            ["IPG"] = 0x7007E,
+            ["IRB"] = 0x13F0b,
+            ["IRA"] = 0x13F0b,
+            ["IRE"] = 0x18DF0,
+            ["IRD"] = 0x18DF0
+
         };
 
         private string gameCode;
@@ -32,7 +37,7 @@ namespace DSShinyEditor
                 Console.WriteLine($"Game version is {gameCode}.");
                 string workingFolder = Path.Combine(Directory.GetParent(path).ToString(), gameCode+@"\");
                 Directory.CreateDirectory(Path.Combine(Directory.GetParent(path).ToString(), gameCode)); // Create folder at the root of the current directory
-                if (gameCode == "IPK" || gameCode == "IPG")
+                if (gameCode == "IPK" || gameCode == "IPG" || gameCode == "IRB" || gameCode == "IRA" || gameCode == "IRE" || gameCode == "IRD" )
                 {
                     // Unpack the ROM using ndstool
                     Process unpack = new Process();
