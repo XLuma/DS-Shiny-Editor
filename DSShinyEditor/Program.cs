@@ -73,7 +73,7 @@ To calculate the percentage, the following can be used: (Rate/65535)*100. The de
             byte rate;
             Console.Write("Shiny Rate? ");
 
-            while (!byte.TryParse(Console.ReadLine(), out rate))
+            while (!byte.TryParse(Console.ReadLine(), out rate) && rate >= 0x0 && rate <= 0xFF)
                 Console.Write("Invalid value. Let's try again: Shiny Rate? ");
 
             return rate;
