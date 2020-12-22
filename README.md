@@ -12,6 +12,9 @@ TODO
 # Credits
 
 PlatinumMaster, for rewriting code to make it easier to handle with multiple games
+
 Mixone, for HGSS support and useful additions
+
 NomuraRH, wich DSPRE's source code greatly helped understand things
+
 XLuma, initial code
