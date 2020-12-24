@@ -48,7 +48,7 @@ namespace DSShinyEditor
                     unpack.StartInfo.CreateNoWindow = true;
                     unpack.Start();
                     unpack.WaitForExit();
-
+                    DecompressArm9(workingFolder);
                     // Modify the arm9
                     using (BinaryWriter bw = new BinaryWriter(File.OpenWrite(workingFolder + "arm9.bin")))
                     {
@@ -68,6 +68,7 @@ namespace DSShinyEditor
                 } else
                 {
                     // Copy ROM and modify it
+                    
                     File.Copy(path, workingFolder+"shinyModified.nds");
                     using (BinaryWriter bw = new BinaryWriter(File.OpenWrite(workingFolder + "shinyModified.nds")))
                     {
@@ -93,6 +94,25 @@ namespace DSShinyEditor
             {
                 throw new Exception("Game not supported. Exiting.\n" + e.StackTrace);
             }
+        }
+
+        private void DecompressArm9(string workingFolder)
+        {
+            if (new FileInfo(workingFolder + @"arm9.bin").Length < 0xC0000)
+            {
+                BinaryWriter arm9Truncate = new BinaryWriter(File.OpenWrite(workingFolder + @"arm9.bin"));
+                long arm9Length = new FileInfo(workingFolder + @"arm9.bin").Length;
+                arm9Truncate.BaseStream.SetLength(arm9Length - 0xc);
+                arm9Truncate.Close();
+            }
+
+            Process decompress = new Process();
+            decompress.StartInfo.FileName = @"Tools\blz.exe";
+            decompress.StartInfo.Arguments = @" -d " + '"' + workingFolder + "arm9.bin" + '"';
+            decompress.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            decompress.StartInfo.CreateNoWindow = true;
+            decompress.Start();
+            decompress.WaitForExit();
         }
     }
 }
