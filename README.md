@@ -7,7 +7,7 @@ SUPPORTED GAMES: Platinum, Heartgold, Soulsilver
 Usage: Simply run the program in the command line, and follow the instructions.
 
 TODO
--Add support for Gen5 games
+-Fix bugs I guess
 
 # Credits
 
